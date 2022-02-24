@@ -1,108 +1,42 @@
 package jm.task.core.jdbc.service;
 
 import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.util.Util;
-
-import java.sql.*;
-import java.util.ArrayList;
+import jm.task.core.jdbc.dao.*;
 import java.util.List;
+
 
 public class UserServiceImpl implements UserService {
 
-    private static Long id_count = Long.valueOf("1");
+    private UserDaoJDBCImpl udj;
 
-    private Connection connection;
-
-    public UserServiceImpl(){
-        try{
-            this.connection = Util.getMyConnection();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.getMessage();
-        }
+    public UserServiceImpl() {
+        this.udj = new UserDaoJDBCImpl();
     }
 
     public void createUsersTable()  {
-        String sql = "CREATE TABLE USERS (\n" +
-                "   USER_ID bigint not null,\n" +
-                "   USER_NAME varchar(255) not null,\n" +
-                "   USER_LAST_NAME varchar(255) not null,\n" +
-                "   USER_AGE tinyint not null,\n" +
-                "   primary key (USER_ID),\n" +
-                "   unique (USER_ID)\n" +
-                ");";
-        statementExecute(sql);
+        this.udj.createUsersTable();
     }
 
     public void dropUsersTable() {
-        statementExecute("drop table users;");
+        this.udj.dropUsersTable();
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        String sql = "INSERT INTO USERS (USER_ID, USER_NAME, USER_LAST_NAME, USER_AGE) " +
-                "values (?, ?, ?, ?);";
-        try{
-            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id_count);
-            preparedStatement.setString(2, name);
-            preparedStatement.setString(3, lastName);
-            preparedStatement.setByte(4, age);
-            preparedStatement.executeUpdate();
-
-            System.out.println("User с именем – " + name + " добавлен в базу данных");
-        } catch (SQLException e) {
-            e.getMessage();
-        }
-        id_count++;
+        this.udj.saveUser(name, lastName, age);
     }
 
     public void removeUserById(long id) {
-        String sql = "delete from users where USER_ID = ?;";
-        try{
-            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e){
-            e.getMessage();
-        }
+        this.udj.removeUserById(id);
     }
 
     public List<User> getAllUsers() {
-        String sql = "select * from users;";
-        List<User> userList = new ArrayList<>();
-        try{
-            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while(rs.next()){
-                User user = new User(rs.getString(2), rs.getString(3), rs.getByte(4));
-                user.setId(rs.getLong(1));
-                userList.add(user);
-            }
-        }catch(SQLException e){
-            e.getMessage();
-        }
-        return userList;
+        return this.udj.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        statementExecute("delete from users;");
+        this.udj.cleanUsersTable();
     }
-
-    private boolean statementExecute(String sql){
-        try{
-            this.connection.createStatement().execute(sql);
-            return true;
-        } catch (SQLException e) {
-            e.getMessage();
-            return false;
-        }
-    }
-
     public void closeConnection(){
-        try{
-            this.connection.close();
-        } catch (SQLException e) {
-            e.getMessage();
-        }
+        this.udj.closeConnection();
     }
 }
