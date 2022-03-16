@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="UserServiceTest" time="1.072" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="UserServiceTest" time="2.791" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2021.3.2"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="17.0.2+8-LTS-86"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17.0.2\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\voda0\IdeaProjects\PP1134_JDBC_Hibernate"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\voda0\IdeaProjects\PP_114_Hibernate"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="user.country" value="RU"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\voda0\IdeaProjects\PP1134_JDBC_Hibernate"/>
+    <property name="user.dir" value="C:\Users\voda0\IdeaProjects\PP_114_Hibernate"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="17.0.2+8-LTS-86"/>
     <property name="os.arch" value="amd64"/>
@@ -60,10 +60,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="UserServiceTest" name="saveUser" time="0.633"/>
-  <testcase classname="UserServiceTest" name="removeUserById" time="0.085"/>
-  <testcase classname="UserServiceTest" name="getAllUsers" time="0.116"/>
-  <testcase classname="UserServiceTest" name="dropUsersTable" time="0.037"/>
-  <testcase classname="UserServiceTest" name="createUsersTable" time="0.063"/>
-  <testcase classname="UserServiceTest" name="cleanUsersTable" time="0.138"/>
+  <testcase classname="UserServiceTest" name="saveUser" time="2.112"/>
+  <testcase classname="UserServiceTest" name="removeUserById" time="0.147"/>
+  <testcase classname="UserServiceTest" name="getAllUsers" time="0.147"/>
+  <testcase classname="UserServiceTest" name="dropUsersTable" time="0.107"/>
+  <testcase classname="UserServiceTest" name="createUsersTable" time="0.116"/>
+  <testcase classname="UserServiceTest" name="cleanUsersTable" time="0.162"/>
 </testsuite>

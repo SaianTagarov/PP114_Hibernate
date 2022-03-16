@@ -8,24 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private static Long id_count = Long.valueOf("1");
+    //private static Long id_count = Long.valueOf("1");
     private Connection connection;
 
-    {
-        try{
-            this.connection = Util.getMyConnection();
-            this.connection.setAutoCommit(false);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.getMessage();
-        }
-    }
+//    {
+//        try{
+//            this.connection = Util.getMyConnection();
+//            this.connection.setAutoCommit(false);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.getMessage();
+//        }
+//    }
 
     public UserDaoJDBCImpl() {
     }
 
     public void createUsersTable() {
         String sql = "CREATE TABLE USERS (\n" +
-                "   USER_ID bigint not null,\n" +
+                "   USER_ID bigint not null auto_increment,\n" +
                 "   USER_NAME varchar(255) not null,\n" +
                 "   USER_LAST_NAME varchar(255) not null,\n" +
                 "   USER_AGE tinyint not null,\n" +
@@ -40,16 +40,16 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        String sql = "INSERT INTO USERS (USER_ID, USER_NAME, USER_LAST_NAME, USER_AGE) " +
-                "values (?, ?, ?, ?);";
+        String sql = "INSERT INTO USERS (USER_NAME, USER_LAST_NAME, USER_AGE) " +
+                "values (?, ?, ?);";
         Savepoint savePoint2 = null;
         try{
             savePoint2 = this.connection.setSavepoint("savePoint2");
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id_count);
-            preparedStatement.setString(2, name);
-            preparedStatement.setString(3, lastName);
-            preparedStatement.setByte(4, age);
+            //preparedStatement.setLong(1, id_count);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
 
             this.connection.commit();
@@ -58,7 +58,7 @@ public class UserDaoJDBCImpl implements UserDao {
             e.getMessage();
             connectionRollback(savePoint2);
         }
-        id_count++;
+        //id_count++;
     }
 
     public void removeUserById(long id) {
@@ -91,7 +91,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
             while(rs.next()){
                 User user = new User(rs.getString(2), rs.getString(3), rs.getByte(4));
-                user.setId(rs.getLong(1));
+                //user.setId(rs.getLong(1));
                 userList.add(user);
             }
         }catch(SQLException e){
