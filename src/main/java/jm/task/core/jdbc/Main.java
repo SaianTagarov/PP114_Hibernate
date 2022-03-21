@@ -26,9 +26,11 @@ public class Main {
         List<User> listUser = usi.getAllUsers();
         listUser.stream().forEach(System.out::println);
 
-        usi.removeUserById((long)1);
+        usi.removeUserById((long)2);
         usi.cleanUsersTable();
         usi.dropUsersTable();
         usi.closeSessionFactory();
+
+
     }
 }

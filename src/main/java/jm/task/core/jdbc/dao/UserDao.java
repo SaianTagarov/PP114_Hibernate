@@ -16,4 +16,8 @@ public interface UserDao {
     List<User> getAllUsers();
 
     void cleanUsersTable();
+
+    default void closeSessionFactory(){
+        System.out.println("Hello Hibernate!");
+    }
 }
